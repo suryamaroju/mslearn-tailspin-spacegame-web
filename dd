@@ -1,0 +1,44 @@
+[1mdiff --git a/azure-pipelines.yml b/azure-pipelines.yml[m
+[1mindex 71a7bff..9ebf27d 100644[m
+[1m--- a/azure-pipelines.yml[m
+[1m+++ b/azure-pipelines.yml[m
+[36m@@ -1,2 +1,38 @@[m
+ pool:[m
+   vmImage: 'Ubuntu-16.04'[m
+[32m+[m[32m  demands:[m
+[32m+[m[32m    - npm[m
+[32m+[m
+[32m+[m[32msteps:[m
+[32m+[m[32m- task: DotNetCoreInstaller@0[m
+[32m+[m[32m  displayName: 'Use .NET Core SDK 2.1.505'[m
+[32m+[m[32m  inputs:[m
+[32m+[m[32m    version: 2.1.505[m
+[32m+[m
+[32m+[m[32m- task: Npm@1[m
+[32m+[m[32m  displayName: 'Run npm install'[m
+[32m+[m[32m  inputs:[m
+[32m+[m[32m    verbose: false[m
+[32m+[m
+[32m+[m[32m- script: './node_modules/.bin/node-sass Tailspin.SpaceGame.Web/wwwroot --output Tailspin.SpaceGame.Web/wwwroot'[m
+[32m+[m[32m  displayName: 'Compile Sass assets'[m
+[32m+[m
+[32m+[m[32m- task: gulp@1[m
+[32m+[m[32m  displayName: 'Run gulp tasks'[m
+[32m+[m
+[32m+[m[32m- script: 'echo "$(Build.DefinitionName), $(Build.BuildId), $(Build.BuildNumber)" > buildinfo.txt'[m
+[32m+[m[32m  displayName: 'Write build info'[m
+[32m+[m[32m  workingDirectory: Tailspin.SpaceGame.Web/wwwroot[m
+[32m+[m
+[32m+[m[32m- task: DotNetCoreCLI@2[m
+[32m+[m[32m  displayName: 'Restore project dependencies'[m
+[32m+[m[32m  inputs:[m
+[32m+[m[32m    command: 'restore'[m
+[32m+[m[32m    projects: '**/*.csproj'[m
+[32m+[m
+[32m+[m[32m- task: DotNetCoreCLI@2[m
+[32m+[m[32m  displayName: 'Build the project - Release'[m
+[32m+[m[32m  inputs:[m
+[32m+[m[32m    command: 'build'[m
+[32m+[m[32m    arguments: '--no-restore --configuration Release'[m
+[32m+[m[32m    projects: '**/*.csproj'[m
+\ No newline at end of file[m

@@ -1,3 +1,4 @@
+[![Build Status](https://dev.azure.com/TailSpin381995/TailSpin/_apis/build/status/suryamaroju.mslearn-tailspin-spacegame-web?branchName=master)](https://dev.azure.com/TailSpin381995/TailSpin/_build/latest?definitionId=1&branchName=master)
 
 # Contributing
 
